@@ -54,7 +54,7 @@ cp -r "$DOTFILES/.themes" ~/
 cp -r "$DOTFILES/wallpapers" ~/Pictures/
 
 #cp greetd config to enable tuigreet
-cp "$DOTFILES/config.toml" /etc/greetd/
+sudo cp "$DOTFILES/config.toml" /etc/greetd/
 echo "Copied dotfiles and folders"
 
 chmod +x ~/.local/bin/appdrawer \
