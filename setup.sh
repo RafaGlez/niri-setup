@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 set -e  # Exit if any command fails
 
-mkdir -p ~/.config ~/.local ~/.local/share
+mkdir -p ~/.local ~/.local/share
 
 sudo dnf install -y xdg-user-dirs
 
 #creates user directories
 xdg-user-dirs-update
-echo "Succesfully created user directories"
+echo "Created user directories"
 
 sudo dnf copr enable -y Yalter/niri
 sudo dnf copr enable -y Codelovr/swayosd
 sudo dnf copr enable -y Solopasha/hyprland
-echo "Succesfully enabled copr repos"
+echo "Enabled copr repos"
+
 
 #install required packages
 sudo dnf install -y \
@@ -37,23 +38,23 @@ sudo dnf install -y \
     swayosd \
     dbus-devel \
     cifs-utils
-echo "Succesfully installed all packages"
 
 #remove apps that niri installs by defulat that I won't use
 sudo dnf remove alacritty fuzzel"
+echo "Installed all packages"
 
 DOTFILES="$HOME/niri-setup"
 
-echo "copying dotfiles..."
+echo "Copying dotfiles..."
 cp -r "$DOTFILES/bin" ~/.local/
-cp -r "$DOTFILES/.config" ~/.config/
+cp -r "$DOTFILES/.config" ~/
 cp -r "$DOTFILES/fonts" ~/.local/share/
-cp -r "$DOTFILES/.themes" ~/.themes
+cp -r "$DOTFILES/.themes" ~/
 cp -r "$DOTFILES/wallpapers" ~/Pictures/
 
 #cp greetd config to enable tuigreet
 cp "$DOTFILES/config.toml" /etc/greetd/
-echo "Succesfully copied dotfiles and folders"
+echo "Copied dotfiles and folders"
 
 chmod +x ~/.local/bin/appdrawer \
          ~/.local/bin/bgselector \
@@ -63,7 +64,7 @@ chmod +x ~/.local/bin/appdrawer \
 
 #change shell to fish
 chsh -s /usr/bin/fish
-echo "Succesfully changed shell to fish"
+echo "Changed shell to fish"
 
 # Make these services start automatically with Niri
 systemctl --user add-wants niri.service mako.service
@@ -74,12 +75,12 @@ systemctl --user add-wants niri.service overviewlistener.service
 #enable other services
 sudo systemctl enable --now swayosd-libinput-backend.service
 sudo systemctl enable greetd.service
-echo "Succesfully enabled all system and user services"
+echo "Enabled all system and user services"
 
 #enable flathub repo
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak update --appstream
-echo "Succesfully enabled flathub"
+echo "Enabled flathub"
 
 #enable rpm fusion
 sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
@@ -87,7 +88,7 @@ sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-rel
 
 #enable open264 repo
 sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
-echo "Succesfully enabled rpmfusion"
+echo "Enabled rpmfusion"
 
 # Replace the neutered ffmpeg with the real one
 sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
@@ -103,7 +104,7 @@ sudo dnf group install -y sound-and-video
 
 # Install VA-API stuff
 sudo dnf install -y ffmpeg-libs libva libva-utils
-echo "Succesfully installed multimedia and codecs"
+echo "Installed multimedia and codecs"
 
 #install flatpaks
 flatpak install -y flathub \
@@ -119,10 +120,10 @@ flatpak install -y flathub \
     org.localsend.localsend_app \
     org.mozilla.firefox \
     org.prismlauncher.PrismLauncher
-echo "Succesfully installed flatpaks"
+echo "Installed flatpaks"
 
 cd ~
-echo "cloning bzmenu repository..."
+echo "Cloning bzmenu repository..."
 git clone https://github.com/e-tho/bzmenu ~/bzmenu
 cd ~/bzmenu
 
@@ -132,4 +133,4 @@ cp target/release/bzmenu ~/.local/bin/
 echo "bzmenu built successfully."
 
 
-echo "✅ Setup complete! You may need to restart for some changes to take effect."
+echo "Setup complete. You may need to restart for some changes to take effect."
