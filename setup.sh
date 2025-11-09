@@ -121,4 +121,15 @@ flatpak install -y flathub \
     org.prismlauncher.PrismLauncher
 echo "Succesfully installed flatpaks"
 
+cd ~
+echo "cloning bzmenu repository..."
+git clone https://github.com/e-tho/bzmenu ~/bzmenu
+cd ~/bzmenu
+
+echo "Building bzmenu with cargo..."
+cargo build --release
+cp target/release/bzmenu ~/.local/bin/
+echo "bzmenu built successfully."
+
+
 echo "✅ Setup complete! You may need to restart for some changes to take effect."
