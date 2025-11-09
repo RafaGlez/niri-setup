@@ -1,1 +1,1 @@
-## Niri setup meant for minimal fedora installs
+## Personal niri setup meant for a minimal fedora install
