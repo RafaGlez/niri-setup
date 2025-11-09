@@ -75,6 +75,7 @@ systemctl --user add-wants niri.service overviewlistener.service
 #enable other services
 sudo systemctl enable --now swayosd-libinput-backend.service
 sudo systemctl enable greetd.service
+sudo systemctl set-default graphical.target
 echo "Enabled all system and user services"
 
 #enable flathub repo
