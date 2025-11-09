@@ -41,7 +41,7 @@ sudo dnf install -y \
     cifs-utils
 
 #remove apps that niri installs by defulat that I won't use
-sudo dnf remove alacritty fuzzel
+sudo dnf remove -y alacritty fuzzel
 echo "Installed all packages"
 
 DOTFILES="$HOME/niri-setup"
