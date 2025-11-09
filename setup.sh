@@ -57,8 +57,7 @@ cp -r "$DOTFILES/wallpapers" ~/Pictures/
 sudo cp "$DOTFILES/config.toml" /etc/greetd/
 echo "Copied dotfiles and folders"
 
-chmod +x ~/.local/bin/appdrawer \
-         ~/.local/bin/bgselector \
+chmod +x ~/.local/bin/bgselector \
          ~/.local/bin/colorwaybar \
          ~/.local/bin/overviewlistener \
          ~/.local/bin/powermenu
