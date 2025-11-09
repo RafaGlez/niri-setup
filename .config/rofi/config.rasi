@@ -36,7 +36,7 @@ window {
     border-radius: 11px;
     border: 1px solid;
     border-color: #000000;
-    background-color: #1B1B27;
+    background-color: #1e1e2e;
     padding: 0px;
     width: 30%;
 }
@@ -59,7 +59,7 @@ element-icon {
 }
 
 element-text {
-    text-color: #e1e1e1;
+    text-color: #cdd6f4;
 }
 
 #scrollbar {

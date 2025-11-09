@@ -1,7 +1,7 @@
 // Global
 configuration {
     location:                       0;
-    font:                           "Font Awesome 6 Free:style=regular";
+    font:                           "Font Awesome 7 Free:style=regular";
 }
  
  
@@ -10,7 +10,7 @@ configuration {
   margin: 0;
   padding: 0;
   spacing: 0;
-  background: #1B1B27;
+  background: #1e1e2e;
   background-alt: #282a36;  
   border: #44475a; 
   foreground: #f8f8f2;  
@@ -39,7 +39,7 @@ listview {
     background-color:               @background;
     columns:                        1;
     lines:                          4;
-    spacing:                        85px;
+    spacing:                        80px;
     layout:                         horizontal;
 }
  
@@ -60,7 +60,7 @@ element {
 element-text {
     background-color:               inherit;
     text-color:                     inherit;
-    font:                           "Font Awesome 6 Free 30";
+    font:                           "Font Awesome 7 Free 30";
     expand:                         false;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
