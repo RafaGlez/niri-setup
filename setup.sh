@@ -9,9 +9,9 @@ sudo dnf install -y xdg-user-dirs
 xdg-user-dirs-update
 echo "Created user directories"
 
-sudo dnf copr enable -y Yalter/niri
-sudo dnf copr enable -y Codelovr/swayosd
-sudo dnf copr enable -y Solopasha/hyprland
+sudo dnf copr enable -y yalter/niri
+sudo dnf copr enable -y codelovr/swayosd
+sudo dnf copr enable -y solopasha/hyprland
 echo "Enabled copr repos"
 
 
@@ -28,6 +28,7 @@ sudo dnf install -y \
     flatpak \
     aria2 \
     pavucontrol \
+    mako \
     mate-polkit \
     nautilus \
     unzip \
@@ -40,7 +41,7 @@ sudo dnf install -y \
     cifs-utils
 
 #remove apps that niri installs by defulat that I won't use
-sudo dnf remove alacritty fuzzel"
+sudo dnf remove alacritty fuzzel
 echo "Installed all packages"
 
 DOTFILES="$HOME/niri-setup"
