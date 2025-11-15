@@ -122,7 +122,8 @@ flatpak install -y flathub \
     org.localsend.localsend_app \
     org.mozilla.firefox \
     org.prismlauncher.PrismLauncher \
-    org.gnome.Loupe
+    org.gnome.Loupe /
+    tv.plex.PlexDesktop
 echo "Installed flatpaks"
 
 cd ~
