@@ -269,7 +269,7 @@ layout {
 // See the binds section below for more spawn examples.
 
    spawn-at-startup "swayosd-server"
-   spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
+   spawn-at-startup "/usr/libexec/polkit-mate-authentication-agent-1"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
