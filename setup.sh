@@ -12,6 +12,7 @@ echo "Created user directories"
 sudo dnf copr enable -y yalter/niri
 sudo dnf copr enable -y codelovr/swayosd
 sudo dnf copr enable -y solopasha/hyprland
+sudo dnf copr enable -y birkch/QDiskInfo
 echo "Enabled copr repos"
 
 
@@ -39,7 +40,8 @@ sudo dnf install -y \
     swayosd \
     dbus-devel \
     cifs-utils \
-    ethtool
+    ethtool \
+    QDiskInfo
 
 #remove apps that niri installs by defulat that I won't use
 sudo dnf remove -y alacritty fuzzel
