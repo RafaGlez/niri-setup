@@ -38,7 +38,8 @@ sudo dnf install -y \
     niri \
     swayosd \
     dbus-devel \
-    cifs-utils
+    cifs-utils \
+    ethtool
 
 #remove apps that niri installs by defulat that I won't use
 sudo dnf remove -y alacritty fuzzel
@@ -120,7 +121,8 @@ flatpak install -y flathub \
     org.freedesktop.Platform.VulkanLayer.gamescope//25.08 \
     org.localsend.localsend_app \
     org.mozilla.firefox \
-    org.prismlauncher.PrismLauncher
+    org.prismlauncher.PrismLauncher \
+    org.gnome.Loupe
 echo "Installed flatpaks"
 
 cd ~
