@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-set -e  # Exit if any command fails
+# Exit if any command fails
+set -euo pipefail 
 
 mkdir -p ~/.local ~/.local/share
-
 sudo dnf install -y xdg-user-dirs
 
 #creates user directories
@@ -15,6 +15,13 @@ sudo dnf copr enable -y solopasha/hyprland
 sudo dnf copr enable -y birkch/QDiskInfo
 echo "Enabled copr repos"
 
+#enable rpm fusion
+sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+                     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+#enable open264 repo
+sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+echo "Enabled rpmfusion"
 
 #install required packages
 sudo dnf install -y \
@@ -41,10 +48,32 @@ sudo dnf install -y \
     dbus-devel \
     cifs-utils \
     ethtool \
-    QDiskInfo
+    QDiskInfo \
+    steam
 
-#remove apps that niri installs by defulat that I won't use
+#remove apps that niri installs by default that I won't use
 sudo dnf remove -y alacritty fuzzel
+
+#enable flathub repo
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak update --appstream
+echo "Enabled flathub"
+
+#install flatpaks
+flatpak install -y flathub \
+    com.github.tchx84.Flatseal \
+    com.heroicgameslauncher.hgl \
+    com.spotify.Client \
+    com.vysp3r.ProtonPlus \
+    io.github.kolunmi.Bazaar \
+    io.github.radiolamp.mangojuice \
+    org.freedesktop.Platform.VulkanLayer.MangoHud//25.08 \
+    org.freedesktop.Platform.VulkanLayer.gamescope//25.08 \
+    org.localsend.localsend_app \
+    org.mozilla.firefox \
+    org.prismlauncher.PrismLauncher \
+    org.gnome.Loupe \
+    tv.plex.PlexDesktop
 echo "Installed all packages"
 
 DOTFILES="$HOME/niri-setup"
@@ -81,19 +110,6 @@ sudo systemctl enable greetd.service
 sudo systemctl set-default graphical.target
 echo "Enabled all system and user services"
 
-#enable flathub repo
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak update --appstream
-echo "Enabled flathub"
-
-#enable rpm fusion
-sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-                     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-#enable open264 repo
-sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
-echo "Enabled rpmfusion"
-
 # Replace the neutered ffmpeg with the real one
 sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 
@@ -110,24 +126,6 @@ sudo dnf group install -y sound-and-video
 sudo dnf install -y ffmpeg-libs libva libva-utils
 echo "Installed multimedia and codecs"
 
-#install flatpaks
-flatpak install -y flathub \
-    com.github.tchx84.Flatseal \
-    com.heroicgameslauncher.hgl \
-    com.spotify.Client \
-    com.valvesoftware.Steam \
-    com.vysp3r.ProtonPlus \
-    io.github.kolunmi.Bazaar \
-    io.github.radiolamp.mangojuice \
-    org.freedesktop.Platform.VulkanLayer.MangoHud//25.08 \
-    org.freedesktop.Platform.VulkanLayer.gamescope//25.08 \
-    org.localsend.localsend_app \
-    org.mozilla.firefox \
-    org.prismlauncher.PrismLauncher \
-    org.gnome.Loupe /
-    tv.plex.PlexDesktop
-echo "Installed flatpaks"
-
 cd ~
 echo "Cloning bzmenu repository..."
 git clone https://github.com/e-tho/bzmenu ~/bzmenu
@@ -138,5 +136,35 @@ cargo build --release
 cp target/release/bzmenu ~/.local/bin/
 echo "bzmenu built successfully."
 
+# Hide certain .desktop launchers from Rofi and app menus
+echo "Hiding apps..."
+# Define your target directory
+LOCAL_APPS="$HOME/.local/share/applications"
+
+# Make sure the directory exists
+mkdir -p "$LOCAL_APPS"
+
+# List of .desktop files to hide
+apps=(
+    kitty.desktop
+    rofi.desktop
+    rofi-theme-selector.desktop
+    nwg-look.desktop
+)
+
+# Copy each file and mark it as hidden
+for app in "${apps[@]}"; do
+    src="/usr/share/applications/$app"
+    dest="$LOCAL_APPS/$app"
+    if [ -f "$src" ]; then
+        cp "$src" "$dest"
+        echo "Hidden=true" >> "$dest"
+        echo "Hidden $app"
+    else
+        echo "Skipping $app (not found)"
+    fi
+done
+
+echo "All selected applications have been hidden."
 
 echo "Setup complete. You may need to restart for some changes to take effect."
