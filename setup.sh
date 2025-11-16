@@ -49,7 +49,8 @@ sudo dnf install -y \
     cifs-utils \
     ethtool \
     QDiskInfo \
-    steam
+    steam \
+    syncthing
 
 #remove apps that niri installs by default that I won't use
 sudo dnf remove -y alacritty fuzzel
@@ -73,7 +74,8 @@ flatpak install -y flathub \
     org.mozilla.firefox \
     org.prismlauncher.PrismLauncher \
     org.gnome.Loupe \
-    tv.plex.PlexDesktop
+    tv.plex.PlexDesktop \
+    md.obsidian.Obsidian
 echo "Installed all packages"
 
 DOTFILES="$HOME/niri-setup"
@@ -150,6 +152,7 @@ apps=(
     rofi.desktop
     rofi-theme-selector.desktop
     nwg-look.desktop
+    syncthing-ui.desktop
 )
 
 # Copy each file and mark it as hidden
